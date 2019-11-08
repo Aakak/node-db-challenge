@@ -1,79 +1,42 @@
 const express = require('express');
 
-const Projects = require('./project-model.js');
-const Tasks = require('./tasks-model.js');
+const Resources = require('./resource-model.js');
 
 const router = express.Router();
 
-
 router.get('/', (req, res) => {
-    Projects.find().then(projects => {
-        res.status(200).json(projects.map(Projects.changeCompletedProperty));
+  Resources.find().then(resources => {
+        res.status(200).json(resources);
     }).catch(err => {
         console.log(err);
-        res.status(500).json({ message: 'Failed to get project' });
+        res.status(500).json({ message: 'Failed to fetch resources' });
     });
 });
 
 router.get('/:id', (req, res) => {
   const id = req.params.id;
-  Projects.findById(id).then(project => {
-        res.status(200).json(Projects.changeCompletedProperty(project));
+  Resources.findById(id).then(resource => {
+        res.status(200).json(resource);
     }).catch(err => {
         console.log(err);
-        res.status(500).json({ message: 'Failed to fetch project' });
+        res.status(500).json({ message: 'Failed to fetch resource' });
     });
 });
 
 
 router.post('/', (req, res) => {
-    const newProject = req.body;
-
-    Projects.add(newProject)
-    .then(project => {
-      res.status(201).json(Projects.changeCompletedProperty(project));
+    const newResource = req.body;
+    console.log(newResource);
+    Resources.add(newResource)
+    .then(resource => {
+      res.status(201).json(resource);
     })
     .catch (err => {
-      res.status(500).json({ message: 'Failed to create new project' });
+      console.log(err)
+      res.status(500).json({ message: 'Failed to create new resource' });
     });
   });
 
 
-// project tasks
-router.get('/:project_id/tasks', (req, res) => {
-  const project_id = req.params.project_id;
-  Tasks.findAllByProjectId(project_id)
-  .then(tasks => {
-    res.status(200).json(tasks.map(Projects.changeCompletedProperty));
-  })
-  .catch(err => {
-    res.status(500).json({ message: 'Failed to get tasks for project' });
-  });
-});
-
-router.get('/:project_id/tasks/:id', (req, res) => {
-  const id = req.params.id;
-  Tasks.findById(id)
-  .then(task => {
-    res.status(200).json(Projects.changeCompletedProperty(task));
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({ message: 'Failed to get task' });
-  });
-});
-
-router.post('/:id/tasks', (req, res) => {
-  const id = req.params.id;
-  const task = req.body;
-  Tasks.add(task, id)
-  .then(task => {
-    res.status(200).json(Projects.changeCompletedProperty(task));
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({ message: 'Failed to get task' });
-  });
-});
 
 module.exports = router;
