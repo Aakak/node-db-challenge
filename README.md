@@ -34,18 +34,31 @@ Follow these steps for completing your project.
 
 Commit your code regularly and use descriptive messages. This helps both you (in case you ever need to return to old code) and your Team Lead.
 
+
+
+###################################
 ## Self-Study/Essay Questions
 
 Demonstrate your understanding of this week's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 - [ ] Explain the difference between `Relational Databases` and `SQL`.
 
+*** SQL and relational databases are two different concepts. Relational databases just use SQL as the main interface for manipulating data but other database types can also support SQL.
+
 - [ ] Why do tables need a `primary key`?
+
+*** We use primary key to identify data by unique id, and to join tables.
+
 
 - [ ] What is the name given to a table column that references the primary key on another table.
 
+ *** A Foreign Key.
+
 - [ ] What do we need in order to have a _many to many_ relationship between two tables.
 
+ ***  We need to create join table between two tables by using foreign key. 
+
+#####################################
 ## Minimum Viable Product
 
 Take the steps necessary to complete the project from scratch. Start by initializing your project with a `package.json` and go from there.
